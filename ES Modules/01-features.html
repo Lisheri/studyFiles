@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 通过给 script 标签添加 type="module" 的属性, 就可以以 ES Module标准执行其中的JS代码 -->
+    <script type="module">
+        console.info("this is es module")
+    </script>
+
+    <script type="module" defer>
+        console.info(this)
+    </script>
+</body>
+</html>
