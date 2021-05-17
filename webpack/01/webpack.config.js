@@ -3,6 +3,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 这个模块�
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 载入HtmlWebpackPlugin, 他不需要解构, 默认导出就是
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin'); // 用于压缩css文件
+const TerserWebpackPlugin = require('terser-webpack-plugin'); // 压缩JS
 
 class myPlugin {
     // 定义一个类, 然后定义一个apply方法
@@ -182,7 +185,9 @@ module.exports = (env, argv) => {
                     test: /.css$/,// 表示匹配所有的.css结尾的文件, 也就是匹配所有的css文件
                     use: [
                         // 改成数组后, 配置多个loader, 执行是从后往前执行, 就像一个栈一样, 先进后出, 最先进去的最后执行
-                        'style-loader', 'css-loader'
+                        // 'style-loader',  // 使用MiniCssExtractPlugin就用不上他了, 不需要注入style标签的方式, 而是直接link
+                        MiniCssExtractPlugin.loader,
+                        'css-loader'
                     ] // cssloader的作用就是将css文件转换成一个js模块, 具体实现就是将css代码转换成字符串push到了一个数组中
                     // 但是单纯向上面这样只使用一个css-loader就会发现没有任何代码引用这一串字符串
                     // 因此这里还需要一个style-loader, 就是将css的字符串通过style标签放到页面上
@@ -243,7 +248,8 @@ module.exports = (env, argv) => {
             new webpack.DefinePlugin({
                 // 这个插件的构造函数接收一个对象, 对象的每一个键值, 都是往process.env中注入的东西
                 API_BASE_URL: '"https://api.example.com"'
-            })
+            }),
+            new MiniCssExtractPlugin(),
         ],
         devServer: {
             http2: true,
@@ -270,8 +276,14 @@ module.exports = (env, argv) => {
             }
         },
         optimization: {
-            usedExports: true,
-            minimize: true
+            // usedExports: true,
+            // minimize: true,
+            // concatenateModules: true
+            sideEffects: true, // production模式下自动开始
+            minimizer: [
+                new OptimizeCssAssetsWebpackPlugin(),
+                new TerserWebpackPlugin()
+            ]
         }
     }
     if (env.production) {

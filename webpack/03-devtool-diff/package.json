@@ -1,12 +1,10 @@
 {
-  "name": "01",
+  "name": "03-devtool-diff",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Lisher",
   "license": "MIT",
   "scripts": {
-    "serve": "yarn webpack serve --port 3000",
-    "build": "webpack --config webpack.prod.js"
+    "serve": "yarn webpack serve --port 3000"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
@@ -18,14 +16,10 @@
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
-    "mini-css-extract-plugin": "^1.6.0",
-    "optimize-css-assets-webpack-plugin": "^6.0.0",
     "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^5.1.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-merge": "^5.7.3"
+    "webpack-dev-server": "^3.11.2"
   }
 }
