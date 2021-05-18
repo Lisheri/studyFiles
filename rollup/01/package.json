@@ -1,0 +1,10 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Lisher",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^2.48.0"
+  }
+}
